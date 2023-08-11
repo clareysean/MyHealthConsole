@@ -21,6 +21,7 @@ class Prescription(models.Model):
 class Care_provider(models.Model):
     name = models.CharField(max_length=50)
     facility = models.CharField(max_length=75)
+    department = models.CharField(max_length=50, default='Family Medicine')
 
     # Many to many relationship for patients >--< care providers
     users = models.ManyToManyField(User)
@@ -31,7 +32,7 @@ class Care_provider(models.Model):
 
 class Appointment(models.Model):
     date = models.DateField('Appointment Date')
-    time = models.TimeField
+    time = models.TimeField('Appointment Time')
     location = models.CharField(max_length=75)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -41,4 +42,4 @@ class Photo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Photo for user: {self.user.username} @{self.url}"
+        return f"Photo for user: {self.user.id} @{self.url}"
