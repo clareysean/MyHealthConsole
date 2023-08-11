@@ -1,0 +1,44 @@
+from django.db import models
+from django.urls import reverse
+from datetime import date
+from django.contrib.auth.models import User
+
+from django.utils import timezone
+
+# now = timezone.now()
+# Create your models here.
+
+
+class Prescription(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Care_provider(models.Model):
+    name = models.CharField(max_length=50)
+    facility = models.CharField(max_length=75)
+
+    # Many to many relationship for patients >--< care providers
+    users = models.ManyToManyField(User)
+
+    def __str__(self):
+        return self.name
+
+
+class Appointment(models.Model):
+    date = models.DateField('Appointment Date')
+    time = models.TimeField
+    location = models.CharField(max_length=75)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for user: {self.user.username} @{self.url}"
