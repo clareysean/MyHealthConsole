@@ -3,7 +3,7 @@
 <h1>Your Care Providers</h1>
 
 {% for care_provider in care_providers %}
-<a href="{% url 'detail' care_provider.id %}">
+<a href="{% url 'care_provider_detail' care_provider.id %}">
   <div class="card">
     <div class="card-content">
       <span class="card-title">{{ care_provider.name }}</span>

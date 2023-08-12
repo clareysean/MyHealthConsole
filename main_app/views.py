@@ -41,6 +41,45 @@ def about(request):
 
 
 @login_required
+def care_provider_detail(request, care_provider_id):
+    care_provider = Care_provider.objects.get(id=care_provider_id)
+    return render(request, 'care_providers/detail.html', {
+        'care_provider': care_provider
+    })
+
+
+@login_required
 def care_providers_index(request):
     care_providers = Care_provider.objects.filter(users=request.user)
     return render(request, 'care_providers/index.html', {'care_providers': care_providers})
+
+
+@login_required
+def users_detail(request, user_id):
+    care_providers = Care_provider.objects.get(id=user_id)
+    appointment_form = AppointmentForm()
+    return render(request, 'users/detail.html', {
+        'care_providers': care_providers, 'appointment_form': appointment_form
+    })
+
+
+class PrescriptionCreate(LoginRequiredMixin, CreateView):
+    model = Prescription
+    fields = ['name', 'description']
+
+    def form_valid(self, form):
+        # Assign the logged in user (self.request.user)
+        form.instance.user = self.request.user  # form.instance is the cat
+        # Let the CreateView do its job as usual
+        return super().form_valid(form)
+
+
+class CareProviderCreate(LoginRequiredMixin, CreateView):
+    model = Care_provider
+    fields = ['name', 'facility', 'department']
+
+    def form_valid(self, form):
+
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
