@@ -17,6 +17,9 @@ class Prescription(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('prescription_index')
+
 
 class Care_provider(models.Model):
     name = models.CharField(max_length=50)
@@ -28,6 +31,9 @@ class Care_provider(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('care_provider_detail', kwargs={'care_provider_id': self.id})
 
 
 class Appointment(models.Model):

@@ -10,11 +10,12 @@
       {% if user.is_authenticated %}
       <div class="card-action">
         <a href="{% url 'care_provider_update' care_provider.id %}">Edit</a>
-        <a href="{% url 'cats_delete' care_provider.id %}">Delete</a>
+        <a href="{% url 'care_provider_delete' care_provider.id %}">Delete</a>
       </div>
     </div>
     {% else %}
     <p>Login to add a care provider.</p>
-    {% endblock %}
+    {% endif %}
   </div>
 </div>
+{% endblock %}

@@ -73,18 +73,28 @@ def care_provider_detail(request, care_provider_id):
 @login_required
 def care_providers_index(request):
     care_providers = Care_provider.objects.filter(users=request.user)
+    # care_providers = request.user.care_provider_set.all()
+    print(care_providers)
     return render(request, 'care_providers/index.html', {'care_providers': care_providers})
 
 
 @login_required
 def users_detail(request, user_id):
     try:
-        care_providers = Care_provider.objects.get(id=user_id)
+        care_providers = Care_provider.objects.filter(users=request.user)
     except Care_provider.DoesNotExist:
         care_providers = None
+
+    try:
+        prescriptions = Prescription.objects.filter(user=request.user)
+    except Prescription.DoesNotExist:
+        prescriptions = None
+
     appointment_form = AppointmentForm()
     return render(request, 'users/detail.html', {
-        'care_providers': care_providers, 'appointment_form': appointment_form
+        'care_providers': care_providers,
+        'appointment_form': appointment_form,
+        'prescriptions': prescriptions,
     })
 
 
@@ -99,15 +109,29 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class PrescriptionList(LoginRequiredMixin, ListView):
+    model = Prescription
+
+
 class CareProviderCreate(LoginRequiredMixin, CreateView):
     model = Care_provider
     fields = ['name', 'facility', 'department']
 
     def form_valid(self, form):
-
-        form.instance.user = self.request.user
+        valid_form = form.save()
+        valid_form.users.add(self.request.user)
 
         return super().form_valid(form)
+
+
+class CareProviderUpdate(LoginRequiredMixin, UpdateView):
+    model = Care_provider
+    fields = ['name', 'facility', 'department']
+
+
+class CareProviderDelete(LoginRequiredMixin, DeleteView):
+    model = Care_provider
+    success_url = '/'
 
 
 class UsersUpdate(LoginRequiredMixin, UpdateView):
@@ -117,7 +141,7 @@ class UsersUpdate(LoginRequiredMixin, UpdateView):
 
 class UsersDelete(LoginRequiredMixin, DeleteView):
     model = User
-    success_url = '/'
+    success_url = '/care_providers'
 
 
 @login_required
