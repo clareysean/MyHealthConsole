@@ -3,7 +3,7 @@ import boto3
 import os
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 
 # auth
 from django.contrib.auth import login
@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #
 from .models import Care_provider, Prescription, Photo, User
-from .forms import AppointmentForm
+from .forms import AppointmentForm, UpdateUserForm
 
 # Create your views here.
 
@@ -134,13 +134,9 @@ class CareProviderDelete(LoginRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class UsersUpdate(LoginRequiredMixin, UpdateView):
-    model = User
-    fields = ['username', 'email', 'first_name', 'last_name']
-
-
 class UsersDelete(LoginRequiredMixin, DeleteView):
     model = User
+    template_name = 'user_confirm_delete.html'
     success_url = '/care_providers'
 
 
@@ -171,3 +167,16 @@ def unassoc_prescription(request, prescription_id, user_id):
         pass  # Handle the case where the prescription doesn't exist
 
     return redirect('users_detail', user_id=user_id)
+
+
+def update_user(request, user_id):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            # Redirect to the user's profile page
+            return redirect('users_detail', user_id=user_id)
+    else:
+        user_form = UpdateUserForm(instance=request.user, )
+
+    return render(request, 'update_user.html', {'user_form': user_form})
