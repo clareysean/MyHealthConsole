@@ -18,7 +18,7 @@ urlpatterns = [
          name='prescriptions_create'),
     path('prescriptions/', views.PrescriptionList.as_view(),
          name='prescription_index'),
-    path('users/<int:prescription_id>/unassoc_prescription/',
+    path('users/<int:prescription_id>/unassoc_prescription/<int:user_id>/',
          views.unassoc_prescription, name='unassoc_prescription'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
     path('users/<int:pk>/update/', views.UsersUpdate.as_view(), name='users_update'),

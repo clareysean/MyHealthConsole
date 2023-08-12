@@ -162,7 +162,7 @@ def add_appointment(request, user_id):
 
 
 @login_required
-def unassoc_prescription(request, prescription_id):
+def unassoc_prescription(request, prescription_id, user_id):
     try:
         prescription = Prescription.objects.get(
             id=prescription_id, user=request.user)
@@ -170,4 +170,4 @@ def unassoc_prescription(request, prescription_id):
     except Prescription.DoesNotExist:
         pass  # Handle the case where the prescription doesn't exist
 
-    return redirect('prescription_index')
+    return redirect('users_detail', user_id=user_id)

@@ -69,6 +69,15 @@
       <div class="card-content">
         <span class="card-title"> {{prescription.name}} </span>
         <p>Description: {{prescription.description}}</p>
+        <div class="card-action">
+          <form
+            action="{% url 'unassoc_prescription' prescription.id user.id %}"
+            method="POST"
+          >
+            {% csrf_token %}
+            <button type="submit" class="btn">Remove Prescription</button>
+          </form>
+        </div>
       </div>
       {% comment %}
       <div class="card-action">

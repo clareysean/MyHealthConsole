@@ -10,7 +10,7 @@
   </div>
   <div class="card-action">
     <form
-      action="{% url 'unassoc_prescription' prescription.id %}"
+      action="{% url 'unassoc_prescription' prescription.id user.id%}"
       method="POST"
     >
       {% csrf_token %}
