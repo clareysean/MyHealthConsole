@@ -13,6 +13,13 @@ urlpatterns = [
     path('prescriptions/create/', views.PrescriptionCreate.as_view(),
          name='prescriptions_create'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
+    path('users/<int:pk>/update/', views.UsersUpdate.as_view(), name='users_update'),
+    path('users/<int:pk>/delete/', views.UsersDelete.as_view(), name='users_delete'),
+    path('users/<int:user_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('users/<int:user_id>/add_appointment/',
+         views.add_appointment, name='add_appointment'),
+
+
 ]
 
 # TODO: ADD THE REMAINING PATHS, STARTING WITH path('accounts/signup/', views.signup, name='signup'),

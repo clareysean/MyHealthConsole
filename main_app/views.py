@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #
-from .models import Care_provider, Prescription, Photo
+from .models import Care_provider, Prescription, Photo, User
 from .forms import AppointmentForm
 
 # Create your views here.
@@ -30,6 +30,28 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+
+@login_required
+def add_photo(request, user_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            Photo.objects.create(url=url, user_id=user_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('detail', user_id=user_id)
 
 
 def home(request):
@@ -56,7 +78,10 @@ def care_providers_index(request):
 
 @login_required
 def users_detail(request, user_id):
-    care_providers = Care_provider.objects.get(id=user_id)
+    try:
+        care_providers = Care_provider.objects.get(id=user_id)
+    except Care_provider.DoesNotExist:
+        care_providers = None
     appointment_form = AppointmentForm()
     return render(request, 'users/detail.html', {
         'care_providers': care_providers, 'appointment_form': appointment_form
@@ -83,3 +108,30 @@ class CareProviderCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
 
         return super().form_valid(form)
+
+
+class UsersUpdate(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = ['username', 'email', 'first_name', 'last_name']
+
+
+class UsersDelete(LoginRequiredMixin, DeleteView):
+    model = User
+    success_url = '/'
+
+
+@login_required
+def add_appointment(request, user_id):
+    # create a ModelForm instance using
+    # the data that was submitted in the form
+    form = AppointmentForm(request.POST)
+    # validate the form
+    if form.is_valid():
+        # We want a model instance, but
+        # we can't save to the db yet
+        # because we have not assigned the
+        # cat_id FK.
+        new_appointment = form.save(commit=False)
+        new_appointment.user_id = user_id
+        new_appointment.save()
+    return redirect('users_detail', user_id=user_id)

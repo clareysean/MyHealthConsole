@@ -9,8 +9,8 @@
         <span class="card-title">{{ user.get_username }}</span>
       </div>
       <div class="card-action">
-        <a href="{% url 'users_update' user.id %}">Edit</a>
-        <a href="{% url 'users_delete' user.id %}">Delete</a>
+        <a href="{% url 'users_update' user.id %}">Edit Profile Info</a>
+        <a href="{% url 'users_delete' user.id %}">Delete Profile</a>
       </div>
     </div>
     {% for photo in user.photo_set.all %}
@@ -19,7 +19,7 @@
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
     <form
-      action="{% url 'add_photo' cat.id %}"
+      action="{% url 'add_photo' user.id %}"
       enctype="multipart/form-data"
       method="POST"
       class="card-panel"
