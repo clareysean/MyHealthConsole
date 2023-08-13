@@ -53,7 +53,7 @@ def add_photo(request, user_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', user_id=user_id)
+    return redirect('users_detail', user_id=user_id)
 
 
 def home(request):
