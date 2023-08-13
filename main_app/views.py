@@ -4,6 +4,8 @@ import os
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
+from django.contrib import messages
+
 
 # auth
 from django.contrib.auth import login
@@ -11,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #
-from .models import Care_provider, Prescription, Photo, User
+from .models import Care_provider, Prescription, Photo, User, Appointment
 from .forms import AppointmentForm, UpdateUserForm
 
 # Create your views here.
@@ -154,16 +156,32 @@ def add_appointment(request, user_id):
         new_appointment = form.save(commit=False)
         new_appointment.user_id = user_id
         new_appointment.save()
-    return redirect('users_detail', user_id=user_id)
+        return redirect('users_detail', user_id=user_id)
+    else:
+        error_msg = 'Please enter a valid time'
+        messages.error(request, error_msg)
+        return redirect('users_detail', user_id=user_id)
 
 
 @login_required
-def unassoc_prescription(request, prescription_id, user_id):
+def delete_prescription(request, prescription_id, user_id):
     try:
         prescription = Prescription.objects.get(
             id=prescription_id, user=request.user)
         prescription.delete()
     except Prescription.DoesNotExist:
+        pass  # Handle the case where the prescription doesn't exist
+
+    return redirect('users_detail', user_id=user_id)
+
+
+@login_required
+def delete_appointment(request, user_id):
+    try:
+        appointment = Appointment.objects.get(
+            user_id=request.user.id)
+        appointment.delete()
+    except Appointment.DoesNotExist:
         pass  # Handle the case where the prescription doesn't exist
 
     return redirect('users_detail', user_id=user_id)

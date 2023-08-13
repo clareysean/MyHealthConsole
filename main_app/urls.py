@@ -19,7 +19,7 @@ urlpatterns = [
     path('prescriptions/', views.PrescriptionList.as_view(),
          name='prescription_index'),
     path('users/<int:prescription_id>/unassoc_prescription/<int:user_id>/',
-         views.unassoc_prescription, name='unassoc_prescription'),
+         views.delete_prescription, name='delete_prescription'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
     path('users/<int:user_id>/update/',
          views.update_user, name='users_update'),
@@ -27,6 +27,8 @@ urlpatterns = [
     path('users/<int:user_id>/add_photo/', views.add_photo, name='add_photo'),
     path('users/<int:user_id>/add_appointment/',
          views.add_appointment, name='add_appointment'),
+    path('users/<int:user_id>/delete_appointment/',
+         views.delete_appointment, name="delete_appointment"),
 
 
 ]

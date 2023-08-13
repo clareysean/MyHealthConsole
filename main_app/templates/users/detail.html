@@ -54,10 +54,19 @@
         <tr>
           <td>{{appointment.date}}</td>
           <td>{{appointment.time}}</td>
+          <td>
+            <form action="{% url 'delete_appointment' user.id%}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove Appointment</button>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+    {% if messages %} {% for message in messages %}
+    <p class="error">{{ message }}</p>
+    {% endfor %} {% endif %}
   </div>
   <!-- New Markup Above -->
 </div>
