@@ -18,6 +18,10 @@
     </div>
     {% for photo in user.photo_set.all %}
     <img class="responsive-img card-panel" src="{{photo.url}}" />
+    <form action="{% url 'delete_photo' user.id photo.id%}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn">Delete Photo</button>
+    </form>
     {% empty %}
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
