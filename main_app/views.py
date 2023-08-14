@@ -18,6 +18,11 @@ from .forms import AppointmentForm, UpdateUserForm
 # Create your views here.
 
 
+@login_required
+def password_change_view(request):
+    pass
+
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':

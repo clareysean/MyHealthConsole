@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from . import views
 
 urlpatterns = [
@@ -14,6 +15,9 @@ urlpatterns = [
     path('care_provider/<int:pk>/delete/',
          views.CareProviderDelete.as_view(), name='care_provider_delete'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('password_change/', PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', PasswordChangeDoneView.as_view(),
+         name='password_change_done'),
     path('prescriptions/create/', views.PrescriptionCreate.as_view(),
          name='prescriptions_create'),
     path('prescriptions/', views.PrescriptionList.as_view(),
