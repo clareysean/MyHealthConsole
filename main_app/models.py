@@ -1,9 +1,11 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date
+from django.dispatch import receiver
+from django.core.files.storage import default_storage
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete
 
-from django.utils import timezone
 
 # now = timezone.now()
 # Create your models here.
@@ -49,3 +51,15 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for user: {self.user.id} @{self.url}"
+
+
+@receiver(post_delete, sender=Photo)
+def delete_image_file(sender, instance, **kwargs):
+    if instance.url:
+        file_path = instance.url.split(
+            settings.AWS_STORAGE_BUCKET_NAME + '/')[1]
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
+post_delete.connect(delete_image_file, sender=Photo)
