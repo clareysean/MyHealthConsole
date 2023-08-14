@@ -27,8 +27,9 @@ urlpatterns = [
     path('users/<int:user_id>/add_photo/', views.add_photo, name='add_photo'),
     path('users/<int:user_id>/add_appointment/',
          views.add_appointment, name='add_appointment'),
-    path('users/<int:user_id>/delete_appointment/',
+    path('users/<int:user_id>/delete_appointment/<int:appointment_id>/',
          views.delete_appointment, name="delete_appointment"),
+    path('users/<int:user_id>/add_photo/', views.add_photo, name='add_photo'),
 
 
 ]

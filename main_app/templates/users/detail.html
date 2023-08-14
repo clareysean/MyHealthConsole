@@ -55,7 +55,10 @@
           <td>{{appointment.date}}</td>
           <td>{{appointment.time}}</td>
           <td>
-            <form action="{% url 'delete_appointment' user.id%}" method="POST">
+            <form
+              action="{% url 'delete_appointment' user.id appointment.id%}"
+              method="POST"
+            >
               {% csrf_token %}
               <button type="submit" class="btn">Remove Appointment</button>
             </form>

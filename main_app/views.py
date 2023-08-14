@@ -53,7 +53,7 @@ def add_photo(request, user_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', user_id=user_id)
+    return redirect('users_detail', user_id=user_id)
 
 
 def home(request):
@@ -176,15 +176,17 @@ def delete_prescription(request, prescription_id, user_id):
 
 
 @login_required
-def delete_appointment(request, user_id):
+def delete_appointment(request, user_id, appointment_id):
     try:
         appointment = Appointment.objects.get(
-            user_id=request.user.id)
+            id=appointment_id)
         appointment.delete()
     except Appointment.DoesNotExist:
         pass  # Handle the case where the prescription doesn't exist
 
     return redirect('users_detail', user_id=user_id)
+
+# delete not working correctly
 
 
 def update_user(request, user_id):
