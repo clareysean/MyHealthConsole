@@ -43,6 +43,11 @@ def delete_photo(request, photo_id, user_id):
 @login_required
 def add_photo(request, user_id):
     photo_file = request.FILES.get('photo-file', None)
+    try:
+        current_photo = Photo.objects.get(user_id=request.user.id)
+        current_photo.delete()
+    except Photo.DoesNotExist:
+        pass
     if photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
