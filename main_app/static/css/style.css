@@ -12,6 +12,11 @@ main {
   flex: 1 0 auto;
 }
 
+@font-face {
+  font-family: 'GT-Super';
+  src: url('fonts/GT-Super-Display-Medium-Trial.otf');
+}
+
 :root {
   --header-color: #004d49;
   --subheader-color: #068466;
@@ -26,7 +31,7 @@ main {
 }
 
 .serif {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'GT-Super', serif;
 }
 
 
@@ -136,17 +141,39 @@ Home styles
 }
 
 .btn-outline {
-  border: solid 1px #1b5e20;
+  border: solid 1px var(--header-color);
+}
+
+.signup {
+  background-color: var(--header-color);
+  color: white;
 }
 
 .org-container {
   text-align: center;
+  margin-bottom: 80px;
 }
 
 .org-container h1 {
   font-weight: 600;
   font-size: 4em;
   /* line-height: 0.9em; */
+}
+
+.orgs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  grid-gap: 20px;
+}
+
+.orgs img {
+  width: 50%;
+}
+
+.org-container p {
+  color: var(--subheader-color);
 }
 
 /* **********

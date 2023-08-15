@@ -14,20 +14,27 @@
     <div class="home-btns">
         {% comment %} {% if user.is_authenticated %} {% endcomment %}
         {% comment %} {% else %}  {% endcomment %}
-        <a href="{% url 'signup' %}" class="waves-effect waves-light btn green darken-4">Sign up</a>
-        <a href="{% url 'login' %}" class="waves-effect waves-light btn-flat green-text text-darken-4 btn-outline">Login</a>
+        <a href="{% url 'signup' %}" class="waves-effect waves-light btn signup">Sign up</a>
+        <a href="{% url 'login' %}" class="waves-effect waves-light btn-flat btn-outline grn-text">Login</a>
         {% comment %} {% endif %} {% endcomment %}
     </div>
-
-   
 
     <div class="landing-img-container">
         <img src="{% static 'img/landing-img.jpg' %}">   
     </div>
 
     <div class="org-container">
-        <h1 class="serif green-text text-darken-4">Trusted by companies<br>around the world
+        <h1 class="serif grn-text">Used by 10,000+ companies<br>around the world
         </h1>
+
+        <div class="orgs">
+            <img src="{% static 'img/org/cigna-logo.jpg' %}">           
+            <img src="{% static 'img/org/cvs-logo.jpg' %}">   
+            <img src="{% static 'img/org/mckesson-logo.jpg' %}">   
+            <img src="{% static 'img/org/elevance-logo.jpg' %}">   
+        </div>
+
+        <p>Our commitment to providing reliable and comprehensive healthcare solutions sets us apart as a trusted partner for employee well-being.</p>
     </div>
 </section>
 
