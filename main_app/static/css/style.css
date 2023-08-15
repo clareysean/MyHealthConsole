@@ -1,3 +1,7 @@
+/* **********
+General styles
+********** */
+
 body {
   height: 100%;
   width: 100%;
@@ -8,13 +12,31 @@ main {
   flex: 1 0 auto;
 }
 
+:root {
+  --header-color: #004d49;
+  --subheader-color: #068466;
+}
+
+.grn-text {
+  color: var(--header-color);
+}
+
+.grn-text-sub {
+  color: var(--subheader-color);
+}
+
+.serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
 
 /* **********
 Header/Nav styles
 ********** */
 
-.nav-wrapper {
-  background-color: #0c247a;
+nav.transparent {
+  box-shadow: none;
+  border-bottom: none;
 }
 
 nav a.sidenav-trigger {
@@ -28,9 +50,9 @@ nav a.sidenav-trigger {
   height: 100%;
 }
 
-body .sidenav li > a > i {
+/* body .sidenav li > a > i {
   margin-right: 0;
-}
+} */
 
 .sidenav-container {
   position: relative;
@@ -42,12 +64,14 @@ body .sidenav li > a > i {
   bottom: 60px;
 }
 
+
+
 /* **********
 Footer styles
 ********** */
 
 .page-footer {
-  position: fixed;
+  /* position: absolute; */
   bottom: 0;
   width: 100%;
   display: flex;
@@ -55,9 +79,75 @@ Footer styles
 
   padding: 0;
   font-size: 12px;
-  background-color: #0c247a;
+  /* background-color: #4f50ff; */
 }
 
+
+/* **********
+Home styles
+********** */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-text-container {
+  /* display: flex; */
+  /* flex-direction: column; */
+  text-align: center;
+}
+
+.home-text-container h1 {
+  font-weight: 600;
+  font-size: 5.5em;
+  line-height: 0.9em;
+}
+
+.home-text-container p {
+  margin-top: 50px;
+  color: var(--header-color);
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+.landing-img-container {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-img-container img {
+  width: 100%;  
+  /* height: 60vh; */
+  /* align-self: flex-end; */
+
+  /* height: 100%; */
+  /* position: absolute; */
+}
+
+.home-btns {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.home-btns a {
+  margin: 0 5px;
+}
+
+.btn-outline {
+  border: solid 1px #1b5e20;
+}
+
+.org-container {
+  text-align: center;
+}
+
+.org-container h1 {
+  font-weight: 600;
+  font-size: 4em;
+  /* line-height: 0.9em; */
+}
 
 /* **********
 Media Queries
@@ -67,6 +157,19 @@ Media Queries
 
   nav a.sidenav-trigger {
       display: block;
+  }
+
+  .home-text-container {
+    width: 60%;
+    margin: 0 auto;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+  .nav-wrapper .right li {
+    display: none;
   }
 
 }

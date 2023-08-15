@@ -1,5 +1,38 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
 
-<h1>Track Your Health Journey</h1>
+<section class="home-container">
+    <div class="home-text-container">
+        <h1 class="serif">
+            <span class="grn-text">Track Your</span>
+            <br>
+            <span class="grn-text-sub">Health Journey</span>
+        </h1>
+
+        <p>MyHealthConsole is your comprehensive healthcare companion, designed to empower you with seamless management and access to your health information. With our user-friendly interface and powerful features, we're here to simplify your healthcare journey and put you in control of your well-being.</p>
+    </div>
+    <div class="home-btns">
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+        {% comment %} {% else %}  {% endcomment %}
+        <a href="{% url 'signup' %}" class="waves-effect waves-light btn green darken-4">Sign up</a>
+        <a href="{% url 'login' %}" class="waves-effect waves-light btn-flat green-text text-darken-4 btn-outline">Login</a>
+        {% comment %} {% endif %} {% endcomment %}
+    </div>
+
+   
+
+    <div class="landing-img-container">
+        <img src="{% static 'img/landing-img.jpg' %}">   
+    </div>
+
+    <div class="org-container">
+        <h1 class="serif green-text text-darken-4">Trusted by companies<br>around the world
+        </h1>
+    </div>
+</section>
+
+
+
+
 
 {% endblock %}
