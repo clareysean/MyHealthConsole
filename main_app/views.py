@@ -29,6 +29,7 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            print('form validated')
             login(request, user)
             return redirect('index')
         else:
