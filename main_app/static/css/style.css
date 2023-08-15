@@ -13,8 +13,13 @@ main {
 }
 
 @font-face {
-  font-family: 'GT-Super';
+  font-family: 'GT-Super-med';
   src: url('fonts/GT-Super-Display-Medium-Trial.otf');
+}
+
+@font-face {
+  font-family: 'GT-Super-reg';
+  src: url('fonts/GT-Super-Display-Regular-Trial.otf');
 }
 
 :root {
@@ -31,7 +36,7 @@ main {
 }
 
 .serif {
-  font-family: 'GT-Super', serif;
+  font-family: 'GT-Super-reg', serif;
 }
 
 
@@ -155,7 +160,7 @@ Home styles
 }
 
 .org-container h1 {
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 4em;
   /* line-height: 0.9em; */
 }
