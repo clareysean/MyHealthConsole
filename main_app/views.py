@@ -117,6 +117,12 @@ def users_detail(request, user_id):
     })
 
 
+@login_required
+def prescription_index(request):
+    prescriptions = Prescription.objects.filter(user_id=request.user.id)
+    return render(request, 'prescription_list.html', {'prescriptions': prescriptions})
+
+
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['name', 'description']
@@ -126,10 +132,6 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user  # form.instance is the cat
         # Let the CreateView do its job as usual
         return super().form_valid(form)
-
-
-class PrescriptionList(LoginRequiredMixin, ListView):
-    model = Prescription
 
 
 class CareProviderCreate(LoginRequiredMixin, CreateView):
