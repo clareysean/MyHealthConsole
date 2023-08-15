@@ -1,7 +1,6 @@
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -9,15 +8,65 @@ main {
   flex: 1 0 auto;
 }
 
-footer.page-footer {
-  padding-top: 0;
-  text-align: right;
-}
 
-svg {
-  height: 16px;
-}
+/* **********
+Header/Nav styles
+********** */
 
 .nav-wrapper {
-  padding: 0 20px 0 0;
+  background-color: #0c247a;
+}
+
+nav a.sidenav-trigger {
+  display: block;
+}
+
+.user-view .background {
+  background-color: red; /* Add a background color for debugging */
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+body .sidenav li > a > i {
+  margin-right: 0;
+}
+
+.sidenav-container {
+  position: relative;
+}
+
+.nav-btm-link {
+  position: absolute;
+  width: 100%;
+  bottom: 60px;
+}
+
+/* **********
+Footer styles
+********** */
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 0;
+  font-size: 12px;
+  background-color: #0c247a;
+}
+
+
+/* **********
+Media Queries
+********** */
+
+@media only screen and (min-width: 993px) {
+
+  nav a.sidenav-trigger {
+      display: block;
+  }
+
 }
