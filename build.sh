@@ -7,5 +7,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Run Gunicorn with your Django application
-gunicorn healthapp.wsgi
+gunicorn healthapp.wsgi:application
 
