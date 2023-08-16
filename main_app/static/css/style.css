@@ -184,6 +184,18 @@ Home styles
   margin: 0 auto;
 }
 
+.iphone-container {
+  display: flex;
+
+}
+
+.iphone-container img {
+  width: 50%;
+}
+
+.iphone-text-container {
+  display: flex;
+}
 
 /* **********
 Footer styles
@@ -397,6 +409,20 @@ Media Queries
 
   .pres-bg img {
     width: 90vw;
+  }
+
+  .details-container .row .col.s6 {
+    width: 100%;
+  }
+
+  .details-container h1 {
+    font-size: 3.3em;
+    text-align: center;
+  }
+
+  .details-container h3 {
+    font-size: 2.5em;
+    text-align: center;
   }
 
 }

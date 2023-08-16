@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
+<div class="container details-container">
   
-  <h1>Your Profile</h1>
+  <h1 class="serif grn-text">Your Profile</h1>
 
   <div class="row">
     <div class="col s6">
@@ -14,15 +14,15 @@
           <p>Email Address: {{user.email}}</p>
         </div>
         <div class="card-action">
-          <a href="{% url 'users_update' user.id %}">Edit Profile Info</a>
-          <a href="{% url 'users_delete' user.id %}">Delete Profile</a>
+          <a href="{% url 'users_update' user.id %}" class="grn-text">Edit Profile Info</a>
+          <a href="{% url 'users_delete' user.id %}" class="grn-text">Delete Profile</a>
         </div>
       </div>
       {% for photo in user.photo_set.all %}
       <img class="responsive-img card-panel" src="{{photo.url}}" />
-      <form action="{% url 'delete_photo' user.id photo.id%}" method="POST">
+      <form action="{% url 'delete_photo' user.id photo.id%}" method="POST"  style="padding-bottom: 10px">
         {% csrf_token %}
-        <button type="submit" class="btn">Delete Photo</button>
+        <button type="submit" class="btn-flat btn-outline grn-text">Delete Photo</button>
       </form>
       {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
@@ -36,7 +36,7 @@
         {% csrf_token %}
         <input type="file" name="photo-file" />
         <br /><br />
-        <button type="submit" class="btn">Upload Photo</button>
+        <button type="submit" class="btn grn-bg">Upload Photo</button>
       </form>
     </div>
     <!-- New Markup Below -->
@@ -54,7 +54,7 @@
           <input type="text" id="id_time" name="{{ appointment_form.time.name }}" class="timepicker">
           {% comment %} {{ appointment_form.time }} {% endcomment %}
         </div>
-        <input type="submit" class="btn" value="Add Appointment" />
+        <input type="submit" class="btn grn-bg" value="Add Appointment" />
       </form>
       <br />
       <table class="striped">
@@ -75,7 +75,7 @@
                 method="POST"
               >
                 {% csrf_token %}
-                <button type="submit" class="btn">Remove Appointment</button>
+                <button type="submit" class="btn-flat btn-outline grn-text">Remove Appointment</button>
               </form>
             </td>
           </tr>
@@ -93,33 +93,24 @@
   <hr />
   <div class="row">
     <div class="col s6">
-      <h3>Your Prescriptions</h3>
+      <h3 class="serif grn-text">Your Prescriptions</h3>
       {% if prescriptions.count %} {% for prescription in prescriptions.all %}
       <div class="card">
         <div class="card-content">
-          <span class="card-title"> {{prescription.name}} </span>
-          <p>Description: {{prescription.description}}</p>
-          <div class="card-action">
+          <span class="card-title grn-text"> {{prescription.name}} </span>
+          <p class="subheader">description</p>
+          <p class="grn-text">{{prescription.description}}</p>
+          <div class="card-action" style="padding: 10px 0 0 0">
             <form
               action="{% url 'delete_prescription' prescription.id user.id %}"
               method="POST"
             >
               {% csrf_token %}
-              <button type="submit" class="btn">Remove Prescription</button>
+              <button type="submit" class="btn-flat btn-outline grn-text">Remove Prescription</button>
             </form>
           </div>
         </div>
-        {% comment %}
-        <div class="card-action">
-          <form
-            action="{% url 'unassoc_prescription' user.id prescription.id %}"
-            method="POST"
-          >
-            {% csrf_token %}
-            <button type="submit" class="btn">Remove</button>
-          </form>
-        </div>
-        {% endcomment %}
+
       </div>
       {% endfor %} {% else %}
       <h5>No Current Prescriptions.</h5>
@@ -127,13 +118,15 @@
     </div>
     <!-- Available prescriptions will come after this line -->
     <div class="col s6">
-      <h3>Your Care Providers</h3>
+      <h3 class="serif grn-text">Your Care Providers</h3>
       {% if care_providers.count %} {% for care_provider in care_providers %}
       <div class="card">
         <div class="card-content">
-          <span class="card-title"> {{ care_provider.name}} </span>
-          <p>Location: {{ care_provider.facility|linebreaks }}</p>
-          <p>Department: {{ care_provider.department|linebreaks }}</p>
+          <span class="card-title grn-text"> {{ care_provider.name}} </span>
+          <p class="subheader">location:</p>
+          <p class="grn-text">{{ care_provider.facility }}</p>
+          <p class="subheader">department:</p> 
+          <p class="grn-text">{{ care_provider.department }}</p>
         </div>
       </div>
       {% endfor %} {% else %}
@@ -144,15 +137,6 @@
 
 
 </div>
-
-{% comment %} ########################## the assoc_prescription form will go on
-the index template for prescriptions ########################## {% endcomment %}
-{% comment %}
-<form action="{% url 'assoc_toy' cat.id toy.id %}" method="POST">
-  {% csrf_token %}
-  <button type="submit" class="btn">Add</button>
-</form>
-{% endcomment %}
 
 <script>
   const dateEl = document.getElementById("id_date");
