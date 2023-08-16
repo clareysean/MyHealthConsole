@@ -69,9 +69,11 @@ nav a.sidenav-trigger {
   height: 100%;
 }
 
-/* body .sidenav li > a > i {
-  margin-right: 0;
-} */
+/* nav icons */
+body .sidenav li > a > i {
+  margin-right: 15px !important;
+  color: black !important;
+}
 
 .sidenav-container {
   position: relative;
@@ -212,6 +214,44 @@ Footer styles
   margin-left: 10px;
   color: white;
 }
+
+
+/* **********
+prescriptions styles
+********** */
+
+.prescription-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, minmax(1fr, 500px));
+}
+
+.prescription-cards-container .card {
+  max-height: 500px;
+}
+
+.prescription-cards-container .row .col.m7 {
+  width: 100%;
+}
+
+.card-image {
+  height: 50px;
+  background-color: var(--header-color);
+  display: flex;
+  align-items: center;
+}
+
+.card-image img {
+  height: 100px;
+  object-fit: cover;
+}
+
+.card .card-image .card-title {
+  padding: 0 24px;
+  position: relative;
+}
+
+
 
 /* **********
 Media Queries

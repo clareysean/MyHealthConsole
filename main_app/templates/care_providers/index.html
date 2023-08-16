@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
+<div class="container">
+
 <h1>Your Care Providers</h1>
 
 {% for care_provider in care_providers %}
@@ -12,4 +14,9 @@
     </div>
   </div>
 </a>
+
+
+
+</div>
+
 {% endfor %} {% endblock %}
