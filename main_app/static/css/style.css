@@ -239,7 +239,6 @@ prescriptions styles
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(auto, 300px);
-  /* padding-bottom: 200px; */
 }
 
 .prescription-cards-container .card {
@@ -309,6 +308,47 @@ prescriptions styles
 }
 
 
+/* **********
+care providers styles
+********** */
+
+.care-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, 300px);
+  grid-gap: 10px;
+}
+
+.care-container a {
+  color: var(--header-color);
+  display: block;
+}
+
+/* .care-container .card {
+  background-color: var(--);
+} */
+
+.care-container .card-title {
+  font-weight: 500;
+}
+
+.care-container .subheader {
+  color: grey;
+  font-variant: small-caps;
+  font-size: 1em;
+}
+
+.care-container .card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.care-container .btn.orange-bg {
+  width: 100%;
+  color: white;
+}
 
 /* **********
 Media Queries

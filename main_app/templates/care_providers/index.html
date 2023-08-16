@@ -1,22 +1,89 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
 
 <div class="container">
 
-<h1>Your Care Providers</h1>
+  <h1 class="serif grn-text">Care Providers</h1>
+  <hr class="pres-hr">
 
-{% for care_provider in care_providers %}
-<a href="{% url 'care_provider_detail' care_provider.id %}">
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ care_provider.name }}</span>
-      <p>Location: {{ care_provider.facility|linebreaks }}</p>
-      <p>Department: {{ care_provider.department|linebreaks }}</p>
+  <section class="care-container">
+    {% for care_provider in care_providers %}
+      
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{ care_provider.name }}</span>
+            <p class="subheader">location:</p>
+            <p>{{ care_provider.facility }}</p>
+            <p class="subheader">department:</p> 
+            <p>{{ care_provider.department }}</p>
+            {% if user.is_authenticated %}
+              <div class="card-action">
+                <a href="{% url 'care_provider_update' care_provider.id %}">Edit</a>
+                <a href="{% url 'care_provider_delete' care_provider.id %}">Delete</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      
+    {% endfor %}
+    
+    <a href="{% url 'care_providers_create' %}" class="btn orange-bg">Add care provider</a>
+
+  </section>  
+</div>
+
+
+{% comment %} <div class="container flex-col">
+
+  <h1 class="serif grn-text">Care Providers</h1>
+  <hr class="pres-hr">
+
+  <section class="prescription-cards-container">
+
+    {% for care_provider in care_providers %}
+    <div class="row">
+      <div class="col s12 m7">
+        <div class="card">
+          <div>
+          <div class="card-image">
+            <span class="card-title">{{ prescription.name }}</span>
+          </div>
+          <div class="card-content">
+            <p class="subheader">description</p>
+            <p class="description">{{ prescription.description }}</p>
+          </div>
+        </div>
+          <div class="card-action">
+            <form action="{% url 'delete_prescription' prescription.id user.id%}" method="POST">
+            {% csrf_token %}
+              <button type="submit" class="btn grn-bg">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</a>
+    {% endfor %} 
 
+    <a href="{% url 'prescriptions_create' %}" class="btn orange-bg">New Prescription</a>
 
+  </section>
 
 </div>
 
-{% endfor %} {% endblock %}
+<div class="pres-bg">
+  <img src="{% static 'img/pres-bg.jpg' %}">
+</div>
+
+<footer class="homepage-footer">
+  <section class="footer-link-container">
+      <p>©2023 MyHealthConsole | All rights reserved.</p>
+      <div class="footer-links">
+          <a href="https://www.facebook.com/" target="blank"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+          <a href="https://www.twitter.com/" target="blank"><i class="fa-brands fa-twitter fa-lg"></i></a>
+          <a href="https://www.instagram.com/" target="blank"><i class="fa-brands fa-instagram fa-lg"></i></a>
+          <a href="https://www.linkedin.com/" target="blank"><i class="fa-brands fa-linkedin-in fa-lg"></i></a>
+      </div>
+  </section>
+</footer> {% endcomment %}
+
+{% endblock %}
