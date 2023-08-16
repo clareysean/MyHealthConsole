@@ -244,6 +244,7 @@ prescriptions styles
 
 .prescription-cards-container .card {
   height: 300px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -299,6 +300,15 @@ prescriptions styles
   width: 70vw;
 }
 
+.btn.orange-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 91%;
+  margin: 7px auto 0;
+}
+
+
 
 /* **********
 Media Queries
@@ -317,14 +327,30 @@ Media Queries
 
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1300px) {
 
   .prescription-cards-container {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .prescription-cards-container .card {
+    width: 220px;
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+
   .pres-bg img {
     width: 90vw;
+  }
+
+}
+
+@media only screen and (max-width: 780px) {
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 
 }
