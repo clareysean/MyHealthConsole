@@ -57,31 +57,33 @@
 
   <div class="sidenav-container">
     <ul id="slide-out" class="sidenav">
-      <li><div class="user-view">
-        <div class="background">
-          <img src="{% static 'img/profile-bg.jpg' %}">      
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="{% static 'img/profile-bg.jpg' %}">      
+          </div>
+          <a href="#user"><img class="circle" src="{% static 'img/profile-bg.jpg' %}"></a>
+          <a href="#name"><span class="white-text name">{{ user.get_username }}</span></a>
+          <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
         </div>
-        <a href="#user"><img class="circle" src="{% static 'img/profile-bg.jpg' %}"></a>
-        <a href="#name"><span class="white-text name">{{ user.get_username }}</span></a>
-        <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
-      </div></li>
+      </li>
 
       {% if user.is_authenticated %}
       <li><a href="{% url 'users_detail' user.id %}"><i class="material-icons">verified_user</i>My Profile</a></li>
       <li><div class="divider"></div></li>
       <li><a class="subheader">My Console</a></li>
       <li>
-        <a href="{% url 'care_providers_create' %}"><i class="material-icons nav-icon indigo-text text-darken-1">add_circle_outline</i>Add a Care Provider</a>
+        <a href="{% url 'care_providers_create' %}"><i class="material-icons">add_circle_outline</i>Add a Care Provider</a>
       </li>
         <li>
-          <a href="{% url 'prescriptions_create' %}"><i class="material-icons nav-icon indigo-text text-darken-1">add_circle_outline</i>Add a Prescription</a>
+          <a href="{% url 'prescriptions_create' %}"><i class="material-icons">add_circle_outline</i>Add a Prescription</a>
         </li>
         <li>
-          <a href="{% url 'index' %}"><i class="material-icons nav-icon indigo-text text-darken-1">accessibility
+          <a href="{% url 'index' %}"><i class="material-icons">accessibility
           </i>Care Providers</a>
         </li>
         <li>
-          <a href="{% url 'prescription_index' %}" class="indigo-text text-darken-1"><i class="material-icons nav-icon indigo-text text-darken-1">description</i>Prescriptions</a>
+          <a href="{% url 'prescription_index' %}"><i class="material-icons">description</i>Prescriptions</a>
         </li>
         <li class="nav-btm-link">
           <div class="divider"></div>
@@ -97,14 +99,12 @@
 {% comment %} 
   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> {% endcomment %}
 
-  <main class="container">
+  <main>
     {% block content %}
     <!-- Main content of each template goes here -->
     {% endblock %}
   </main>
-  <footer class="page-footer green darken-4">
-    <div class="right">All Rights Reserved | 2023 MyHealthConsole &nbsp;</div>
-  </footer>
+  
 
   <script src="{% static 'js/script.js' %}"></script>
 </body>

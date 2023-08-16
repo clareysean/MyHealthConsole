@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
-<section class="home-container">
+<div class="home-container container">
     <div class="home-text-container">
         <h1 class="serif">
             <span class="grn-text">Track Your</span>
@@ -36,10 +36,23 @@
 
         <p>Our commitment to providing reliable and comprehensive healthcare solutions sets us apart as a trusted partner for employee well-being.</p>
     </div>
-</section>
+</div>
 
-
-
+<footer class="homepage-footer">
+    <section class="footer-hero">
+        <h1 class="white-text serif">Sign up now</h1>
+        <a href="{% url 'signup' %}" class="waves-effect waves-light btn footer-signup">Join now</a>
+    </section>
+    <section class="footer-link-container">
+        <p>©2023 MyHealthConsole | All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://www.facebook.com/" target="blank"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+            <a href="https://www.twitter.com/" target="blank"><i class="fa-brands fa-twitter fa-lg"></i></a>
+            <a href="https://www.instagram.com/" target="blank"><i class="fa-brands fa-instagram fa-lg"></i></a>
+            <a href="https://www.linkedin.com/" target="blank"><i class="fa-brands fa-linkedin-in fa-lg"></i></a>
+        </div>
+    </section>
+</footer>
 
 
 {% endblock %}
