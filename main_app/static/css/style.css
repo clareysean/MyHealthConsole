@@ -30,6 +30,7 @@ main {
 :root {
   --header-color: #004d49;
   --subheader-color: #068466;
+  --orange-color: #f4805e;
 }
 
 .grn-text {
@@ -44,10 +45,19 @@ main {
   background-color: var(--header-color);
 }
 
+.orange-bg {
+  background-color: var(--orange-color);
+}
+
 .serif {
   font-family: 'GT-Super-Reg', serif;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 /* **********
 Header/Nav styles
@@ -220,18 +230,33 @@ Footer styles
 prescriptions styles
 ********** */
 
+.pres-hr {
+  margin: 0 0 30px 0;
+}
+
 .prescription-cards-container {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(auto, minmax(1fr, 500px));
+  grid-template-rows: repeat(auto, 300px);
+  /* padding-bottom: 200px; */
 }
 
 .prescription-cards-container .card {
-  max-height: 500px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .prescription-cards-container .row .col.m7 {
   width: 100%;
+  height: 100%;
+}
+
+.prescription-cards-container .orange-bg {
+  margin-top: 7px;
+  height: 50px;
 }
 
 .card-image {
@@ -251,6 +276,28 @@ prescriptions styles
   position: relative;
 }
 
+.card .card-content {
+  padding: 12px 24px 24px 24px;
+}
+
+.card-content .subheader {
+  color: grey;
+  font-variant: small-caps;
+  font-size: 1.2em;
+}
+
+.card-content .description {
+  color: var(--header-color);
+  font-weight: 300;
+}
+
+.pres-bg img {
+  position: fixed;
+  bottom: -40px;
+  right: 0;
+  z-index: -1;
+  width: 70vw;
+}
 
 
 /* **********
@@ -266,6 +313,18 @@ Media Queries
   .home-text-container {
     width: 60%;
     margin: 0 auto;
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pres-bg img {
+    width: 90vw;
   }
 
 }
@@ -292,4 +351,13 @@ Media Queries
   .footer-hero h1 {
     font-size: 3em;
   }
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .pres-bg img {
+    width: 100vw;
+  }
+
 }
