@@ -372,6 +372,24 @@ care providers styles
   margin-top: auto;
 }
 
+
+/* **********
+login styles
+********** */
+
+.login-container {
+  width: 20%;
+}
+
+/* **********
+Signup styles
+********** */
+
+.signup-container {
+  padding-bottom: 100px;
+}
+
+
 /* **********
 Media Queries
 ********** */
@@ -425,6 +443,10 @@ Media Queries
     text-align: center;
   }
 
+  .login-container {
+    width: 40%;
+  }
+
 }
 
 @media only screen and (max-width: 780px) {
@@ -475,6 +497,10 @@ Media Queries
 
   .footer-link-container {
     flex-direction: column;
+  }
+
+  .login-container {
+    width: 70%;
   }
 
 }
