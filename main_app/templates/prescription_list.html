@@ -2,7 +2,7 @@
 
 <h1>Your Prescriptions</h1>
 
-{% for prescription in prescription_list %}
+{% for prescription in prescriptions %}
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ prescription.name }}</span>
@@ -10,7 +10,7 @@
   </div>
   <div class="card-action">
     <form
-      action="{% url 'unassoc_prescription' prescription.id user.id%}"
+      action="{% url 'delete_prescription' prescription.id user.id%}"
       method="POST"
     >
       {% csrf_token %}

@@ -18,6 +18,10 @@
     </div>
     {% for photo in user.photo_set.all %}
     <img class="responsive-img card-panel" src="{{photo.url}}" />
+    <form action="{% url 'delete_photo' user.id photo.id%}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn">Delete Photo</button>
+    </form>
     {% empty %}
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
@@ -54,10 +58,22 @@
         <tr>
           <td>{{appointment.date}}</td>
           <td>{{appointment.time}}</td>
+          <td>
+            <form
+              action="{% url 'delete_appointment' user.id appointment.id%}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove Appointment</button>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+    {% if messages %} {% for message in messages %}
+    <p class="error">{{ message }}</p>
+    {% endfor %} {% endif %}
   </div>
   <!-- New Markup Above -->
 </div>
@@ -74,7 +90,7 @@
         <p>Description: {{prescription.description}}</p>
         <div class="card-action">
           <form
-            action="{% url 'unassoc_prescription' prescription.id user.id %}"
+            action="{% url 'delete_prescription' prescription.id user.id %}"
             method="POST"
           >
             {% csrf_token %}

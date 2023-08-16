@@ -4,6 +4,7 @@ import os
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
+from django.contrib import messages
 
 # auth
 from django.contrib.auth import login
@@ -11,10 +12,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #
-from .models import Care_provider, Prescription, Photo, User
+from .models import Care_provider, Prescription, Photo, User, Appointment
 from .forms import AppointmentForm, UpdateUserForm
 
 # Create your views here.
+
+
+@login_required
+def password_change_view(request):
+    pass
 
 
 def signup(request):
@@ -23,6 +29,7 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            print('form validated')
             login(request, user)
             return redirect('index')
         else:
@@ -32,9 +39,21 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
+def delete_photo(request, photo_id, user_id):
+    photo = Photo.objects.get(id=photo_id)
+    if request.user.id == photo.user_id:
+        photo.delete()
+        return redirect('users_detail', user_id=user_id)
+
+
 @login_required
 def add_photo(request, user_id):
     photo_file = request.FILES.get('photo-file', None)
+    try:
+        current_photo = Photo.objects.get(user_id=request.user.id)
+        current_photo.delete()
+    except Photo.DoesNotExist:
+        pass
     if photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
@@ -51,7 +70,7 @@ def add_photo(request, user_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', user_id=user_id)
+    return redirect('users_detail', user_id=user_id)
 
 
 def home(request):
@@ -98,6 +117,12 @@ def users_detail(request, user_id):
     })
 
 
+@login_required
+def prescription_index(request):
+    prescriptions = Prescription.objects.filter(user_id=request.user.id)
+    return render(request, 'prescription_list.html', {'prescriptions': prescriptions})
+
+
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['name', 'description']
@@ -107,10 +132,6 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user  # form.instance is the cat
         # Let the CreateView do its job as usual
         return super().form_valid(form)
-
-
-class PrescriptionList(LoginRequiredMixin, ListView):
-    model = Prescription
 
 
 class CareProviderCreate(LoginRequiredMixin, CreateView):
@@ -154,11 +175,15 @@ def add_appointment(request, user_id):
         new_appointment = form.save(commit=False)
         new_appointment.user_id = user_id
         new_appointment.save()
-    return redirect('users_detail', user_id=user_id)
+        return redirect('users_detail', user_id=user_id)
+    else:
+        error_msg = 'Please enter a valid time'
+        messages.error(request, error_msg)
+        return redirect('users_detail', user_id=user_id)
 
 
 @login_required
-def unassoc_prescription(request, prescription_id, user_id):
+def delete_prescription(request, prescription_id, user_id):
     try:
         prescription = Prescription.objects.get(
             id=prescription_id, user=request.user)
@@ -167,6 +192,20 @@ def unassoc_prescription(request, prescription_id, user_id):
         pass  # Handle the case where the prescription doesn't exist
 
     return redirect('users_detail', user_id=user_id)
+
+
+@login_required
+def delete_appointment(request, user_id, appointment_id):
+    try:
+        appointment = Appointment.objects.get(
+            id=appointment_id)
+        appointment.delete()
+    except Appointment.DoesNotExist:
+        pass  # Handle the case where the prescription doesn't exist
+
+    return redirect('users_detail', user_id=user_id)
+
+# delete not working correctly
 
 
 def update_user(request, user_id):
