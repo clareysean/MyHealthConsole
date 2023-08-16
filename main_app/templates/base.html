@@ -9,29 +9,37 @@
   <meta name="description" content="MyHealthConsole - Your Health Management Platform">
   <meta name="keywords" content="health, management, platform, MyHealthConsole">
   <title>MyHealthConsole</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header class="navbar-fixed">
-    <nav>
+    <nav class="transparent">
       <div class="nav-wrapper">
         <ul>
-          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;MyHealthConsole</a></li>
+          <li><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a></li>
+          <li><a href="{% url 'home' %}" class="left black-text">&nbsp;&nbsp;MyHealthConsole</a></li>
         </ul>
         <ul class="right">
-          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'about' %}" class="black-text">About</a></li>
           {% if user.is_authenticated %}
             <li>
-              <a href="{% url 'prescriptions_create' %}">Add a Prescription</a>
+              <a href="{% url 'logout' %}" class="black-text">Log Out</a>
             </li>
             <li>
+
+              <a href="{% url 'users_detail' user.id %}" class="black-text">
+                <i class="fa-regular fa-user fa-sm"></i>
+                Profile
+
               <a href="{% url 'care_providers_create' %}">Add a Care Provider</a>
             </li>
             <li>
@@ -48,28 +56,75 @@
                 <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M691.573 338.89c-1.282 109.275-89.055 197.047-198.33 198.331-109.292 1.282-197.065-90.984-198.325-198.331-0.809-68.918-107.758-68.998-106.948 0 1.968 167.591 137.681 303.31 305.272 305.278C660.85 646.136 796.587 503.52 798.521 338.89c0.811-68.998-106.136-68.918-106.948 0z" fill="#FFFFFF"></path><path d="M294.918 325.158c1.283-109.272 89.051-197.047 198.325-198.33 109.292-1.283 197.068 90.983 198.33 198.33 0.812 68.919 107.759 68.998 106.948 0C796.555 157.567 660.839 21.842 493.243 19.88c-167.604-1.963-303.341 140.65-305.272 305.278-0.811 68.998 106.139 68.919 106.947 0z" fill="#FFFFFF"></path><path d="M222.324 959.994c0.65-74.688 29.145-144.534 80.868-197.979 53.219-54.995 126.117-84.134 201.904-84.794 74.199-0.646 145.202 29.791 197.979 80.867 54.995 53.219 84.13 126.119 84.79 201.905 0.603 68.932 107.549 68.99 106.947 0-1.857-213.527-176.184-387.865-389.716-389.721-213.551-1.854-387.885 178.986-389.721 389.721-0.601 68.991 106.349 68.933 106.949 0.001z" fill="#FFFFFF"></path></g></svg>
                 </svg>
                 Your Profile
+
               </a>
             </li>
           {% else %} 
           <li>
-            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'login' %}" class="black-text">Log In</a>
           </li>
           <li>
-            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'signup' %}" class="btn green darken-4">Sign Up</a>
           </li>
           {% endif %}
         </ul>
+
       </div>
     </nav>
+
   </header>
-  <main class="container">
+
+  <div class="sidenav-container">
+    <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="{% static 'img/profile-bg.jpg' %}">      
+          </div>
+          <a href="#user"><img class="circle" src="{% static 'img/profile-bg.jpg' %}"></a>
+          <a href="#name"><span class="white-text name">{{ user.get_username }}</span></a>
+          <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+        </div>
+      </li>
+
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'users_detail' user.id %}"><i class="material-icons">verified_user</i>My Profile</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">My Console</a></li>
+      <li>
+        <a href="{% url 'care_providers_create' %}"><i class="material-icons">add_circle_outline</i>Add a Care Provider</a>
+      </li>
+        <li>
+          <a href="{% url 'prescriptions_create' %}"><i class="material-icons">add_circle_outline</i>Add a Prescription</a>
+        </li>
+        <li>
+          <a href="{% url 'index' %}"><i class="material-icons">accessibility
+          </i>Care Providers</a>
+        </li>
+        <li>
+          <a href="{% url 'prescription_index' %}"><i class="material-icons">description</i>Prescriptions</a>
+        </li>
+        <li class="nav-btm-link">
+          <div class="divider"></div>
+          <a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Log Out</a>
+        </li>
+        {% else %} 
+        <li class="nav-btm-link">
+          <a href="{% url 'login' %}">Log In</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% comment %} 
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> {% endcomment %}
+
+  <main>
     {% block content %}
     <!-- Main content of each template goes here -->
     {% endblock %}
   </main>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved | 2023 MyHealthConsole &nbsp;</div>
-  </footer>
+  
+
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
-
