@@ -73,7 +73,6 @@ nav a.sidenav-trigger {
 }
 
 .user-view .background {
-  background-color: red; /* Add a background color for debugging */
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -104,6 +103,24 @@ body .sidenav li > a > i {
   display: flex;
 }
 
+/* sizing for logo */
+.user-view img {
+  width: 60px;
+}
+
+.sidenav .user-view .portrait {
+  height: 100%;
+  width: 100%;
+}
+
+.portrait {
+  border-radius: 10px;
+}
+
+.circle-image-container img {
+  max-width: 250px !important;
+  max-height: 500px !important;
+}
 /* **********
 Home styles
 ********** */
@@ -253,6 +270,31 @@ Footer styles
 .footer-link-container a {
   margin-left: 10px;
   color: white;
+}
+
+
+/* **********
+About styles
+********** */
+
+.about-landing-container {
+  width: 100%;
+  background-color: #f8ffd0;
+  padding: 50px 0 120px 0;
+}
+
+.about-landing-container h1 {
+  text-align: center;
+  font-size: 5.5em;
+}
+
+.about-landing-container p {
+  color: var(--header-color);
+  font-size: 1.2em;
+  font-weight: 300;
+  width: 65%;
+  text-align: center;
+  margin: 0 auto;
 }
 
 
