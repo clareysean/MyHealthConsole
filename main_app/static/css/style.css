@@ -297,6 +297,37 @@ About styles
   margin: 0 auto;
 }
 
+.about-grid-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 110px 0;
+}
+
+.about-grid-item {
+  display: flex;
+  flex-direction: column;
+  max-width: 20vw;
+  text-align: center;
+}
+
+.about-grid-item img {
+  height: 130px;
+  width: 100%; 
+  object-fit: contain;
+}
+
+.about-grid-item h3 {
+  font-size: 1.3em;
+  color: var(--header-color);
+  font-weight: 500;
+}
+
+.about-grid-item p {
+  color: var(--header-color);
+  font-weight: 300;
+  font-size: 1.1em;
+  line-height: 2em;
+}
 
 /* **********
 prescriptions styles
@@ -517,6 +548,19 @@ Media Queries
 
   .iphone-text-container p {
     font-size: 1em;
+  }
+
+  .about-landing-container h1 {
+    font-size: 4em;
+  }
+
+  .about-grid-container {
+    flex-direction: column;
+  }
+
+  .about-grid-item {
+    max-width: 80vw;
+    padding-bottom: 30px;
   }
 
 }
