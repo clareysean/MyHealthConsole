@@ -30,6 +30,7 @@ main {
 :root {
   --header-color: #004d49;
   --subheader-color: #068466;
+  --orange-color: #f4805e;
 }
 
 .grn-text {
@@ -44,10 +45,19 @@ main {
   background-color: var(--header-color);
 }
 
+.orange-bg {
+  background-color: var(--orange-color);
+}
+
 .serif {
   font-family: 'GT-Super-Reg', serif;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 /* **********
 Header/Nav styles
@@ -63,15 +73,16 @@ nav a.sidenav-trigger {
 }
 
 .user-view .background {
-  background-color: red; /* Add a background color for debugging */
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-/* body .sidenav li > a > i {
-  margin-right: 0;
-} */
+/* nav icons */
+body .sidenav li > a > i {
+  margin-right: 15px !important;
+  color: black !important;
+}
 
 .sidenav-container {
   position: relative;
@@ -83,7 +94,33 @@ nav a.sidenav-trigger {
   bottom: 60px;
 }
 
+.nav-wrapper img {
+  width: 60px;
+  padding-top: 25px;
+}
 
+.myc-logo {
+  display: flex;
+}
+
+/* sizing for logo */
+.user-view img {
+  width: 60px;
+}
+
+.sidenav .user-view .portrait {
+  height: 100%;
+  width: 100%;
+}
+
+.portrait {
+  border-radius: 10px;
+}
+
+.circle-image-container img {
+  max-width: 250px !important;
+  max-height: 500px !important;
+}
 /* **********
 Home styles
 ********** */
@@ -94,8 +131,6 @@ Home styles
 }
 
 .home-text-container {
-  /* display: flex; */
-  /* flex-direction: column; */
   text-align: center;
 }
 
@@ -147,7 +182,7 @@ Home styles
 
 .org-container {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .org-container h1 {
@@ -174,14 +209,38 @@ Home styles
   margin: 0 auto;
 }
 
+.iphone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.iphone-container img {
+  width: 35vw;
+}
+
+.iphone-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.iphone-text-container h1 {
+  color: var(--header-color);
+  font-size: 4.7em;
+}
+
+.iphone-text-container p {
+  font-weight: 300;
+  color: var(--header-color);
+  font-size: 1.2em;  
+}
 
 /* **********
 Footer styles
 ********** */
 
 .homepage-footer {
-  /* position: absolute; */
-  /* padding: 30px 0 100px 0; */
   bottom: 0;
   width: 100%;
   text-align: center;
@@ -213,6 +272,229 @@ Footer styles
   color: white;
 }
 
+
+/* **********
+About styles
+********** */
+
+.about-landing-container {
+  width: 100%;
+  background-color: #f8ffd0;
+  padding: 50px 0 120px 0;
+  text-align: center;
+}
+
+.about-landing-container h1 {
+  font-size: 5.5em;
+}
+
+.about-landing-container p {
+  color: var(--header-color);
+  font-size: 1.2em;
+  font-weight: 300;
+  width: 65%;
+  margin: 0 auto;
+}
+
+.about-landing-container a {
+  font-size: 1.2em;
+  color: var(--subheader-color);
+  font-weight: 300;
+}
+
+.about-signup {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.about-grid-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 110px 0;
+}
+
+.about-grid-item {
+  display: flex;
+  flex-direction: column;
+  max-width: 20vw;
+  text-align: center;
+}
+
+.about-grid-item img {
+  height: 130px;
+  width: 100%; 
+  object-fit: contain;
+}
+
+.about-grid-item h3 {
+  font-size: 1.3em;
+  color: var(--header-color);
+  font-weight: 500;
+}
+
+.about-grid-item p {
+  color: var(--header-color);
+  font-weight: 300;
+  font-size: 1.1em;
+  line-height: 2em;
+}
+
+/* **********
+prescriptions styles
+********** */
+
+.pres-hr {
+  margin: 0 0 30px 0;
+}
+
+.prescription-cards-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, 300px);
+}
+
+.prescription-cards-container .card {
+  height: 300px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.prescription-cards-container .row .col.m7 {
+  width: 100%;
+  height: 100%;
+}
+
+.prescription-cards-container .orange-bg {
+  margin-top: 7px;
+  height: 50px;
+}
+
+.card-image {
+  height: 50px;
+  background-color: var(--header-color);
+  display: flex;
+  align-items: center;
+}
+
+.card-image img {
+  height: 100px;
+  object-fit: cover;
+}
+
+.card .card-image .card-title {
+  padding: 0 24px;
+  position: relative;
+}
+
+.card .card-content {
+  padding: 12px 24px 24px 24px;
+}
+
+.card-content .subheader {
+  color: grey;
+  font-variant: small-caps;
+  font-size: 1.2em;
+}
+
+.card-content .description {
+  color: var(--header-color);
+  font-weight: 300;
+}
+
+.pres-bg img {
+  position: fixed;
+  bottom: -40px;
+  right: 0;
+  z-index: -1;
+  width: 70vw;
+}
+
+.btn.orange-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 91%;
+  margin: 7px auto 0;
+}
+
+
+/* **********
+care providers styles
+********** */
+
+.care-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, 300px);
+  grid-gap: 10px;
+}
+
+.care-container .card {
+  color: var(--header-color);
+}
+
+.care-container .card .card-content {
+  padding: 18px 24px 24px 24px;
+}
+
+.care-container .card-title {
+  font-weight: 500;
+}
+
+.care-container .subheader {
+  color: grey;
+  font-variant: small-caps;
+  font-size: 1em;
+}
+
+.care-container .card-action {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 24px 0 0 0;
+  border: none;
+}
+
+.care-container .btn.orange-bg {
+  width: 100%;
+  color: white;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container.flex-col {
+  flex: 1;
+}
+
+.care-footer {
+  margin-top: auto;
+}
+
+
+/* **********
+login styles
+********** */
+
+.login-container {
+  width: 20%;
+}
+
+/* **********
+Signup styles
+********** */
+
+.signup-container {
+  padding-bottom: 100px;
+}
+
+
 /* **********
 Media Queries
 ********** */
@@ -228,6 +510,80 @@ Media Queries
     margin: 0 auto;
   }
 
+}
+
+@media only screen and (max-width: 1300px) {
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prescription-cards-container .card {
+    width: 220px;
+  }
+
+  .care-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+
+  .pres-bg img {
+    width: 90vw;
+  }
+
+  .details-container .row .col.s6 {
+    width: 100%;
+  }
+
+  .details-container h1 {
+    font-size: 3.3em;
+    text-align: center;
+  }
+
+  .details-container h3 {
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  .login-container {
+    width: 40%;
+  }
+
+  .iphone-text-container h1 {
+    font-size: 3.3em;
+  }
+
+  .iphone-text-container p {
+    font-size: 1em;
+  }
+
+  .about-landing-container h1 {
+    font-size: 4em;
+  }
+
+  .about-grid-container {
+    flex-direction: column;
+  }
+
+  .about-grid-item {
+    max-width: 80vw;
+    padding-bottom: 30px;
+  }
+
+}
+
+@media only screen and (max-width: 780px) {
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .care-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -252,4 +608,34 @@ Media Queries
   .footer-hero h1 {
     font-size: 3em;
   }
+
+  .prescription-cards-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .pres-bg img {
+    width: 100vw;
+  }
+
+  .care-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .footer-link-container {
+    flex-direction: column;
+  }
+
+  .login-container {
+    width: 70%;
+  }
+
+  .iphone-container {
+    flex-direction: column;
+  }
+
+
+  .iphone-container img {
+    width: 80vw;
+}
+
 }
