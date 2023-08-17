@@ -95,6 +95,14 @@ body .sidenav li > a > i {
   bottom: 60px;
 }
 
+.nav-wrapper img {
+  width: 60px;
+  padding-top: 25px;
+}
+
+.myc-logo {
+  display: flex;
+}
 
 /* **********
 Home styles
@@ -461,6 +469,14 @@ Media Queries
     width: 40%;
   }
 
+  .iphone-text-container h1 {
+    font-size: 3.3em;
+  }
+
+  .iphone-text-container p {
+    font-size: 1em;
+  }
+
 }
 
 @media only screen and (max-width: 780px) {
@@ -516,5 +532,14 @@ Media Queries
   .login-container {
     width: 70%;
   }
+
+  .iphone-container {
+    flex-direction: column;
+  }
+
+
+  .iphone-container img {
+    width: 80vw;
+}
 
 }
