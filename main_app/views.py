@@ -90,6 +90,22 @@ def care_provider_detail(request, care_provider_id):
 
 
 @login_required
+def prescription_detail(request, prescription_id):
+    prescription = Prescription.objects.get(id=prescription_id)
+    return render(request, 'prescriptions/detail.html', {
+        'prescription': prescription
+    })
+
+
+@login_required
+def appointment_detail(request, appointment_id):
+    appointment = Appointment.objects.get(id=appointment_id)
+    return render(request, 'appointment_detail.html', {
+        'appointment': appointment
+    })
+
+
+@login_required
 def care_providers_index(request):
     care_providers = Care_provider.objects.filter(users=request.user)
     # care_providers = request.user.care_provider_set.all()
@@ -99,11 +115,15 @@ def care_providers_index(request):
 
 @login_required
 def users_detail(request, user_id):
-    try:
-        care_providers = Care_provider.objects.filter(users=request.user)
-    except Care_provider.DoesNotExist:
-        care_providers = None
 
+    care_providers = Care_provider.objects.filter(users=request.user)
+    print('trying docs')
+    print(care_providers)
+    if len(care_providers) <= 0:
+        care_providers = None
+        print('no docs found')
+        error_msg = 'Please add a care provider to enter an appointment'
+        messages.error(request, error_msg)
     try:
         prescriptions = Prescription.objects.filter(user=request.user)
     except Prescription.DoesNotExist:
@@ -125,13 +145,18 @@ def prescription_index(request):
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
-    fields = ['name', 'description']
+    fields = ['name', 'description', 'instructions', 'date_issued']
 
     def form_valid(self, form):
         # Assign the logged in user (self.request.user)
         form.instance.user = self.request.user  # form.instance is the cat
         # Let the CreateView do its job as usual
         return super().form_valid(form)
+
+
+class PrescriptionUpdate(LoginRequiredMixin, UpdateView):
+    model = Prescription
+    fields = ['name', 'description', 'instructions', 'date_issued']
 
 
 class CareProviderCreate(LoginRequiredMixin, CreateView):
@@ -161,25 +186,37 @@ class UsersDelete(LoginRequiredMixin, DeleteView):
     success_url = '/care_providers'
 
 
+class AppointmentUpdate(LoginRequiredMixin, UpdateView):
+    model = Appointment
+    fields = ['date', 'time', 'purpose', 'care_provider']
+
+
 @login_required
 def add_appointment(request, user_id):
-    # create a ModelForm instance using
-    # the data that was submitted in the form
+
     form = AppointmentForm(request.POST)
-    # validate the form
+
     if form.is_valid():
-        # We want a model instance, but
-        # we can't save to the db yet
-        # because we have not assigned the
-        # cat_id FK.
         new_appointment = form.save(commit=False)
         new_appointment.user_id = user_id
         new_appointment.save()
         return redirect('users_detail', user_id=user_id)
     else:
-        error_msg = 'Please enter a valid time'
+        error_msg = 'A care provider is required to create appointments!'
         messages.error(request, error_msg)
         return redirect('users_detail', user_id=user_id)
+
+
+@login_required
+def delete_appointment(request, appointment_id, user_id):
+    try:
+        appointment = Appointment.objects.get(
+            id=appointment_id, user=request.user)
+        appointment.delete()
+    except Appointment.DoesNotExist:
+        pass
+
+    return redirect('users_detail', user_id=user_id)
 
 
 @login_required
@@ -189,7 +226,7 @@ def delete_prescription(request, prescription_id, user_id):
             id=prescription_id, user=request.user)
         prescription.delete()
     except Prescription.DoesNotExist:
-        pass  # Handle the case where the prescription doesn't exist
+        pass
 
     return redirect('users_detail', user_id=user_id)
 

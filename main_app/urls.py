@@ -24,6 +24,10 @@ urlpatterns = [
          name='prescription_index'),
     path('users/<int:prescription_id>/unassoc_prescription/<int:user_id>/',
          views.delete_prescription, name='delete_prescription'),
+    path('prescriptions/<int:pk>/update/',
+         views.PrescriptionUpdate.as_view(), name='prescription_update'),
+    path('prescriptions/<int:prescription_id>/',
+         views.prescription_detail, name='prescription_detail'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
     path('users/<int:user_id>/update/',
          views.update_user, name='users_update'),
@@ -36,8 +40,12 @@ urlpatterns = [
     path('users/<int:user_id>/photos/<int:photo_id>/',
          views.delete_photo, name='delete_photo'),
     path('users/<int:user_id>/add_photo/', views.add_photo, name='add_photo'),
-
-
+    path('appointments/<int:appointment_id>/',
+         views.appointment_detail, name='appointment_detail'),
+    path('appointments/<int:pk>/update/',
+         views.AppointmentUpdate.as_view(), name='appointment_update'),
+    path('users/<int:appointment_id>/delete_appointment/<int:user_id>/',
+         views.delete_appointment, name='delete_appointment'),
 ]
 
 # TODO: ADD THE REMAINING PATHS, STARTING WITH path('accounts/signup/', views.signup, name='signup'),

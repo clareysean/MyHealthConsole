@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Appointment Details</span>
+        <p>Date {{ appointment.date }}</p>
+        <p>Time: {{ appointment.time }}</p>
+        <p>Location: {{ appointment.location }}</p>
+        <p>Purpose: {{ appointment.purpose }}</p>
+        <p>Care Provider: {{ appointment.care_provider }}</p>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="card-action">
+        <a href="{% url 'appointment_update' appointment.id %}">Edit</a>
+        <a href="{% url 'delete_appointment' appointment.id user.id%}"
+          >Delete</a
+        >
+      </div>
+    </div>
+    {% else %}
+    <p>Login to add an appointment.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
