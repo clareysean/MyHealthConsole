@@ -3,6 +3,8 @@
 MyHealthConsole is a platform designed to help users keep track of their healthcare-related information. On the app users can track their care providers, prescriptions, or appointments. Our app provides a convenient and organized solution for all your healthcare data tracking needs. Built using the Django web framework and powered by PostgreSQL, this app ensures security, reliability, and a seamless user experience.
 
 ![My Health Console landing page](https://i.imgur.com/6gWKjwz.png)
+![My Health Console about page](https://i.imgur.com/hOPRyP7.png)
+![My Health Console profile page](https://i.imgur.com/zyCaohJ.png)
 
 ## Features
 

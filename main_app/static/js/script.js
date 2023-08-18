@@ -14,6 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const timeEl = document.getElementById("id_time");
+    M.Timepicker.init(timeEl, {
+      showClearBtn: true, // Add a clear button
+      twelveHour: false, // Use 24-hour format, false for 24 hour
+    });
+  });
+
   const dateIssuedEl = document.getElementById("id_date_issued");
   if (dateIssuedEl) {
     M.Datepicker.init(dateIssuedEl, {

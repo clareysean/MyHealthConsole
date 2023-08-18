@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db.models.signals import post_delete
 from datetime import date
 
@@ -35,11 +36,18 @@ class Care_provider(models.Model):
     # Many to many relationship for patients >--< care providers
     users = models.ManyToManyField(User)
 
+    def delete(self, *args, **kwargs):
+        # Remove the relationship with users
+        self.users.clear()
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('care_provider_detail', kwargs={'care_provider_id': self.id})
+        User = get_user_model()
+        user = User.objects.get(id=self.users.first().id)
+        return reverse('users_detail', kwargs={'user_id': user.id})
 
 
 class Appointment(models.Model):

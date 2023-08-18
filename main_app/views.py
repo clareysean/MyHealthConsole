@@ -1,6 +1,7 @@
 import uuid
 import boto3
 import os
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
@@ -31,7 +32,7 @@ def signup(request):
             user = form.save()
             print('form validated')
             login(request, user)
-            return redirect('index')
+            return redirect(reverse('users_detail', kwargs={'user_id': user.id}))
         else:
             error_message = 'Invalid sign up - try again'
     form = UserCreationForm()
@@ -122,7 +123,7 @@ def users_detail(request, user_id):
     if len(care_providers) <= 0:
         care_providers = None
         print('no docs found')
-        error_msg = 'Please add a care provider to enter an appointment'
+        error_msg = 'No appointments to show.'
         messages.error(request, error_msg)
     try:
         prescriptions = Prescription.objects.filter(user=request.user)
@@ -173,11 +174,12 @@ class CareProviderCreate(LoginRequiredMixin, CreateView):
 class CareProviderUpdate(LoginRequiredMixin, UpdateView):
     model = Care_provider
     fields = ['name', 'facility', 'department']
+    success_url = '/care_providers'
 
 
 class CareProviderDelete(LoginRequiredMixin, DeleteView):
     model = Care_provider
-    success_url = '/'
+    success_url = '/care_providers'
 
 
 class UsersDelete(LoginRequiredMixin, DeleteView):
@@ -185,10 +187,17 @@ class UsersDelete(LoginRequiredMixin, DeleteView):
     template_name = 'user_confirm_delete.html'
     success_url = '/care_providers'
 
+    def delete(self, request, *args, **kwargs):
+        user = self.get_object()
+        care_provider = user.care_provider
+        if care_provider:
+            care_provider.delete()
+        return super().delete(request, *args, **kwargs)
+
 
 class AppointmentUpdate(LoginRequiredMixin, UpdateView):
     model = Appointment
-    fields = ['date', 'time', 'purpose', 'care_provider']
+    fields = ['date', 'time', 'location', 'purpose', 'care_provider']
 
 
 @login_required
@@ -212,6 +221,7 @@ def delete_appointment(request, appointment_id, user_id):
     try:
         appointment = Appointment.objects.get(
             id=appointment_id, user=request.user)
+        print(appointment)
         appointment.delete()
     except Appointment.DoesNotExist:
         pass
@@ -228,7 +238,7 @@ def delete_prescription(request, prescription_id, user_id):
     except Prescription.DoesNotExist:
         pass
 
-    return redirect('users_detail', user_id=user_id)
+    return redirect('prescription_index')
 
 
 @login_required

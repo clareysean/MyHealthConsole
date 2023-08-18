@@ -17,20 +17,23 @@
               <div class="card-content">
                 <p class="subheader">description</p>
                 <p class="description">{{ prescription.description }}</p>
-                <p class="subheader">Instructions</p>
+                <p class="subheader">instructions</p>
                 <p class="description">{{ prescription.instructions }}</p>
-                <p class="subheader">Date Issued</p>
+                <p class="subheader">date issued</p>
                 <p class="description">{{ prescription.date_issued }}</p>
               </div>
             </div>
             <div class="card-action">
-              <form
-                action="{% url 'delete_prescription' prescription.id user.id%}"
-                method="POST"
+              <a
+                class="btn grn-bg"
+                href="{% url 'prescription_update' prescription.id %}"
+                >Edit</a
               >
-                {% csrf_token %}
-                <button type="submit" class="btn grn-bg">Remove</button>
-              </form>
+              <a
+                class="btn-flat btn-outline grn-text"
+                href="{% url 'delete_prescription' prescription.id user.id %}"
+                >Delete</a
+              >
             </div>
           </div>
         </a>
@@ -68,4 +71,4 @@
   </section>
 </footer>
 
-{% endfor %} {% endblock %}
+{% endblock %}

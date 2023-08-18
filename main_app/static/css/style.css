@@ -5,7 +5,7 @@ General styles
 body {
   height: 100%;
   width: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 main {
@@ -13,18 +13,21 @@ main {
 }
 
 @font-face {
-  font-family: 'GT-Super-Med';
-  src: url('../fonts/gt-super-display-medium-trial-webfont.woff2') format('woff2');
+  font-family: "GT-Super-Med";
+  src: url("../fonts/gt-super-display-medium-trial-webfont.woff2")
+    format("woff2");
 }
 
 @font-face {
-  font-family: 'GT-Super-Reg';
-  src: url('../fonts/gt-super-display-regular-trial-webfont.woff2') format('woff2');
+  font-family: "GT-Super-Reg";
+  src: url("../fonts/gt-super-display-regular-trial-webfont.woff2")
+    format("woff2");
 }
 
 @font-face {
-  font-family: 'GT-Super-Light';
-  src: url('../fonts/gt-super-display-light-trial-webfont.woff2') format('woff2');
+  font-family: "GT-Super-Light";
+  src: url("../fonts/gt-super-display-light-trial-webfont.woff2")
+    format("woff2");
 }
 
 :root {
@@ -50,7 +53,7 @@ main {
 }
 
 .serif {
-  font-family: 'GT-Super-Reg', serif;
+  font-family: "GT-Super-Reg", serif;
 }
 
 .flex-col {
@@ -154,7 +157,7 @@ Home styles
 }
 
 .landing-img-container img {
-  width: 100%;  
+  width: 100%;
   /* height: 60vh; */
   /* align-self: flex-end; */
 
@@ -233,7 +236,7 @@ Home styles
 .iphone-text-container p {
   font-weight: 300;
   color: var(--header-color);
-  font-size: 1.2em;  
+  font-size: 1.2em;
 }
 
 /* **********
@@ -244,7 +247,11 @@ Footer styles
   bottom: 0;
   width: 100%;
   text-align: center;
-  background: linear-gradient(180deg, rgba(6,132,102,1) 0%, rgba(0,77,73,1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(6, 132, 102, 1) 0%,
+    rgba(0, 77, 73, 1) 100%
+  );
 }
 
 .footer-hero {
@@ -271,7 +278,6 @@ Footer styles
   margin-left: 10px;
   color: white;
 }
-
 
 /* **********
 About styles
@@ -322,7 +328,7 @@ About styles
 
 .about-grid-item img {
   height: 130px;
-  width: 100%; 
+  width: 100%;
   object-fit: contain;
 }
 
@@ -355,8 +361,8 @@ prescriptions styles
 }
 
 .prescription-cards-container .card {
-  height: 300px;
-  width: 250px;
+  height: 400px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -420,7 +426,6 @@ prescriptions styles
   margin: 7px auto 0;
 }
 
-
 /* **********
 care providers styles
 ********** */
@@ -477,7 +482,6 @@ care providers styles
   margin-top: auto;
 }
 
-
 /* **********
 login styles
 ********** */
@@ -494,42 +498,44 @@ Signup styles
   padding-bottom: 100px;
 }
 
-
 /* **********
 Media Queries
 ********** */
 
 @media only screen and (min-width: 993px) {
-
   nav a.sidenav-trigger {
-      display: block;
+    display: block;
   }
 
   .home-text-container {
     width: 60%;
     margin: 0 auto;
   }
-
 }
 
-@media only screen and (max-width: 1300px) {
-
+@media only screen and (max-width: 1550px) {
   .prescription-cards-container {
     grid-template-columns: repeat(3, 1fr);
   }
+}
 
-  .prescription-cards-container .card {
+@media only screen and (max-width: 1300px) {
+  /* .prescription-cards-container .card {
     width: 220px;
-  }
+  } */
 
   .care-container {
     grid-template-columns: repeat(3, 1fr);
   }
+}
 
+@media only screen and (max-width: 1150px) {
+  .prescription-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media only screen and (max-width: 900px) {
-
   .pres-bg img {
     width: 90vw;
   }
@@ -572,13 +578,11 @@ Media Queries
     max-width: 80vw;
     padding-bottom: 30px;
   }
-
 }
 
 @media only screen and (max-width: 780px) {
-
   .prescription-cards-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .care-container {
@@ -587,7 +591,6 @@ Media Queries
 }
 
 @media only screen and (max-width: 600px) {
-
   .nav-wrapper .right li {
     display: none;
   }
@@ -633,9 +636,7 @@ Media Queries
     flex-direction: column;
   }
 
-
   .iphone-container img {
     width: 80vw;
-}
-
+  }
 }
