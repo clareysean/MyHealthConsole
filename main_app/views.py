@@ -194,8 +194,10 @@ class UsersDelete(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         user = self.get_object()
         care_provider = user.care_provider
-        if care_provider:
+
+        if care_provider is not None:
             care_provider.delete()
+
         return super().delete(request, *args, **kwargs)
 
 
