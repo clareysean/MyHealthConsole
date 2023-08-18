@@ -88,23 +88,23 @@ WSGI_APPLICATION = 'healthapp.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'healthapp',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'myhealthconsole',
-#         'USER': env('NEON_DB_USER'),
-#         'PASSWORD': env('NEON_DB_PW'),
-#         'HOST': env('NEON_DB_HOST'),
-#         'PORT': env('NEON_DB_PORT'),
+#         'NAME': 'healthapp',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myhealthconsole',
+        'USER': env('NEON_DB_USER'),
+        'PASSWORD': env('NEON_DB_PW'),
+        'HOST': env('NEON_DB_HOST'),
+        'PORT': env('NEON_DB_PORT'),
+    }
+}
 
 
 # Password validation
