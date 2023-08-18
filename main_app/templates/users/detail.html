@@ -47,9 +47,12 @@
       <form action="{% url 'add_appointment' user.id %}" method="POST">
         {% csrf_token %}
 
-      {{ appointment_form.as_p }}
-
+        {% if appointment_form %}
+        {{ appointment_form.as_p }}
         <input type="submit" class="btn grn-bg" value="Add Appointment" />
+    {% else %}
+        <p>No care providers available. Please add care providers first.</p>
+    {% endif %}
       </form>
       <br />
       <table class="striped">
@@ -93,7 +96,7 @@
   </div>
 
   <hr />
-  <div class="row">
+  <div class="row profile-row-padding">
     <div class="col s6">
       <h3 class="serif grn-text">Your Prescriptions</h3>
       {% if prescriptions.count %} {% for prescription in prescriptions.all %}

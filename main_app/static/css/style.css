@@ -482,6 +482,10 @@ care providers styles
   margin-top: auto;
 }
 
+.profile-row-padding {
+  padding-bottom: 100px;
+}
+
 /* **********
 login styles
 ********** */

@@ -116,21 +116,25 @@ def care_providers_index(request):
 
 @login_required
 def users_detail(request, user_id):
-
     care_providers = Care_provider.objects.filter(users=request.user)
-    print('trying docs')
-    print(care_providers)
+
     if len(care_providers) <= 0:
         care_providers = None
         print('no docs found')
         error_msg = 'No appointments to show.'
         messages.error(request, error_msg)
+
     try:
         prescriptions = Prescription.objects.filter(user=request.user)
     except Prescription.DoesNotExist:
         prescriptions = None
 
-    appointment_form = AppointmentForm()
+    # Initialize appointment_form conditionally with care_provider_choices
+    appointment_form = None
+    if care_providers is not None and len(care_providers) > 0:
+        appointment_form = AppointmentForm(
+            care_provider_choices=care_providers)
+
     return render(request, 'users/detail.html', {
         'care_providers': care_providers,
         'appointment_form': appointment_form,
@@ -202,8 +206,9 @@ class AppointmentUpdate(LoginRequiredMixin, UpdateView):
 
 @login_required
 def add_appointment(request, user_id):
+    care_providers = Care_provider.objects.filter(users=request.user)
 
-    form = AppointmentForm(request.POST)
+    form = AppointmentForm(request.POST, care_provider_choices=care_providers)
 
     if form.is_valid():
         new_appointment = form.save(commit=False)
