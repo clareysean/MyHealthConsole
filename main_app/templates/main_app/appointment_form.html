@@ -1,12 +1,10 @@
-{% extends 'base.html' %} {% block content %}
-
+{% extends 'base.html' %} {% block content %} {% if object %}
 <div class="container">
-  {% if object %}
   <h1 class="serif grn-text">
     Edit <span class="teal-text">{{ object.name }}</span>
   </h1>
   {% else %}
-  <h1 class="serif grn-text">Add Prescription</h1>
+  <h1 class="serif grn-text">Add Appointment</h1>
   {% endif %}
 
   <!-- Leaving the action empty makes the form post to the same url used to display it -->
