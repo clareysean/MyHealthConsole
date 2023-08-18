@@ -1,7 +1,7 @@
 import uuid
 import boto3
 import os
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #
 from .models import Care_provider, Prescription, Photo, User, Appointment
-from .forms import AppointmentForm, UpdateUserForm
+from .forms import AppointmentForm, UpdateUserForm, AppointmentUpdateForm
 
 # Create your views here.
 
@@ -203,7 +203,37 @@ class UsersDelete(LoginRequiredMixin, DeleteView):
 
 class AppointmentUpdate(LoginRequiredMixin, UpdateView):
     model = Appointment
-    fields = ['date', 'time', 'location', 'purpose', 'care_provider']
+    form_class = AppointmentUpdateForm
+    template_name = 'update_appointment.html'
+
+    def get_success_url(self):
+        return reverse('appointment_detail', kwargs={'appointment_id': self.object.pk})
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Update Appointment'
+        care_providers = Care_provider.objects.filter(users=self.request.user)
+        context['appointment_update_form'] = AppointmentUpdateForm(
+            care_provider_choices=care_providers,
+            instance=self.object
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Retrieve the appointment instance
+        form = self.get_form()
+
+        # Get care providers for the current user and pass it to the form
+        care_providers = Care_provider.objects.filter(users=self.request.user)
+        form.fields['care_provider'].queryset = care_providers
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 @login_required
@@ -247,17 +277,6 @@ def delete_prescription(request, prescription_id, user_id):
 
     return redirect('prescription_index')
 
-
-@login_required
-def delete_appointment(request, user_id, appointment_id):
-    try:
-        appointment = Appointment.objects.get(
-            id=appointment_id)
-        appointment.delete()
-    except Appointment.DoesNotExist:
-        pass  # Handle the case where the prescription doesn't exist
-
-    return redirect('users_detail', user_id=user_id)
 
 # delete not working correctly
 

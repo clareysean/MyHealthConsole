@@ -159,25 +159,4 @@
   </section>
 </footer>
 
-<script>
-  const dateEl = document.getElementById("id_date");
-  M.Datepicker.init(dateEl, {
-    format: "yyyy-mm-dd",
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true,
-  });
-
-  const selectEl = document.getElementById("id_meal");
-  M.FormSelect.init(selectEl);
-
-  document.addEventListener("DOMContentLoaded", function() {
-    const timeEl = document.getElementById("id_time");
-    M.Timepicker.init(timeEl, {
-      showClearBtn: true, // Add a clear button
-      twelveHour: false, // Use 24-hour format, false for 24 hour
-    });
-  });
-</script>
-
 {% endblock %} 
