@@ -527,10 +527,6 @@ Media Queries
 }
 
 @media only screen and (max-width: 1300px) {
-  /* .prescription-cards-container .card {
-    width: 220px;
-  } */
-
   .care-container {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -539,6 +535,10 @@ Media Queries
 @media only screen and (max-width: 1150px) {
   .prescription-cards-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .nav-wrapper {
+    background-color: white;
+    border-bottom: 2px solid whitesmoke;
   }
 }
 
