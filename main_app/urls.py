@@ -48,4 +48,3 @@ urlpatterns = [
          views.delete_appointment, name='delete_appointment'),
 ]
 
-# TODO: ADD THE REMAINING PATHS, STARTING WITH path('accounts/signup/', views.signup, name='signup'),

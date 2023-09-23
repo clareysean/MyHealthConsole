@@ -97,16 +97,18 @@ body .sidenav li > a > i {
   bottom: 60px;
 }
 
-.nav-wrapper img {
-  width: 60px;
-  padding-top: 25px;
-}
-
 .myc-logo {
   display: flex;
+  margin-top: 1rem;
+  height: 30px;
+}
+
+.myc-logo:hover {
+  background-color: white;
 }
 
 /* sizing for logo */
+
 .user-view img {
   width: 60px;
 }
