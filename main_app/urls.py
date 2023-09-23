@@ -1,8 +1,11 @@
 from django.urls import path
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from . import views
 
 urlpatterns = [
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('care_providers/', views.care_providers_index, name='index'),
