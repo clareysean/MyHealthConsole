@@ -14,19 +14,19 @@ main {
 
 @font-face {
   font-family: "GT-Super-Med";
-  src: url("../fonts/gt-super-display-medium-trial-webfont.woff2")
+  src: url("../fonts/gt-super-display-medium-trial-webfont.160e77ceed8c.woff2")
     format("woff2");
 }
 
 @font-face {
   font-family: "GT-Super-Reg";
-  src: url("../fonts/gt-super-display-regular-trial-webfont.woff2")
+  src: url("../fonts/gt-super-display-regular-trial-webfont.d949f5c2f665.woff2")
     format("woff2");
 }
 
 @font-face {
   font-family: "GT-Super-Light";
-  src: url("../fonts/gt-super-display-light-trial-webfont.woff2")
+  src: url("../fonts/gt-super-display-light-trial-webfont.d280989ab161.woff2")
     format("woff2");
 }
 
